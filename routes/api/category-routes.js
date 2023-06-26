@@ -38,20 +38,28 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   // create a new category
   try {
-    const categoryData = await ReadableStream.create(req.body);
+    const categoryData = await Category.create(req.body);
     res.status(200).json(categoryData);
   } catch (err) {
     res.status(400).json(err);
   }
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", async (req, res) => {
   // update a category by its `id` value
-  
+  try {
+    const categoryUpdate = await Category.update(req.body, {
+      where: {
+        id: req.params.id
+      }
+    }) 
+  } catch (err) {
+    console.log(err)
+    res.status(500).json(err);
+  }
 });
 
 router.delete("/:id", async (req, res) => {
- 
   try {
     const categoryData = await ReadableStream.destroy({
       where: {
