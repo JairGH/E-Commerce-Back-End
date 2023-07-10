@@ -53,6 +53,7 @@ router.put("/:id", async (req, res) => {
         id: req.params.id
       }
     }) 
+    res.status(200).json(categoryUpdate);
   } catch (err) {
     console.log(err)
     res.status(500).json(err);
@@ -61,7 +62,7 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   try {
-    const categoryData = await ReadableStream.destroy({
+    const categoryData = await Category.destroy({
       where: {
         id: req.params.id,
       },
